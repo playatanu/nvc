@@ -5,7 +5,7 @@ Colloge App.
 
 ## Screenshots
 
-//![App Screenshot](https://github.com/playatanu/assets/blob/main/playcrypto.gif)
+![App Screenshot](https://github.com/playatanu/assets/blob/main/nvc.gif)
 
   
 ## Features
