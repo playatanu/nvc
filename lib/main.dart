@@ -42,8 +42,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     'https://nvcollege.co.in/18191SemFF/logIn.aspx'
   ];
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     //HomePage(),
     NoticePage(
