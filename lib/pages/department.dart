@@ -1,8 +1,7 @@
+import 'package:cpcoders/styles/color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:nvc/styles/color.dart';
 
 class DepaerPage extends StatefulWidget {
   const DepaerPage({Key? key}) : super(key: key);

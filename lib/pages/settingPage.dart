@@ -1,5 +1,6 @@
+import 'package:cpcoders/styles/color.dart';
 import 'package:flutter/material.dart';
-import 'package:nvc/styles/color.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingPage extends StatefulWidget {

@@ -1,8 +1,8 @@
+import 'package:cpcoders/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
-import 'package:nvc/styles/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LandinPage extends StatefulWidget {

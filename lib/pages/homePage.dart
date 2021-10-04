@@ -1,12 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cpcoders/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
 import 'dart:async';
-
-import 'package:nvc/styles/color.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
