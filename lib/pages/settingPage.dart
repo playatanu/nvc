@@ -48,6 +48,15 @@ _launchCaller() async {
   }
 }
 
+_launchCallerHelpLine() async {
+  const url = "tel:03472 291110";
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 _launchWhatsapp() async {
   const url = "https://wa.me/916296843271";
   if (await canLaunch(url)) {
@@ -71,96 +80,155 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 backgroundColor: Colors.white,
               ),
-        body: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                UserAccountsDrawerHeader(
-                  accountEmail: null,
-                  accountName: null,
-                  decoration: new BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                        image: AssetImage('assets/logo.jpg'),
-                        fit: BoxFit.fitHeight),
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    'Welcome to Nabadwip Vidyasagar College',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                  onTap: () {
-                    _openMap();
-                  },
-                  child: ListTile(
-                      leading: Icon(Icons.location_on_outlined),
-                      title: Text('Address'),
-                      subtitle:
-                          Text('Pacca Tole Road, Nabadwip, Nadia – 741302')),
-                ),
-                InkWell(
-                  onTap: () {
-                    _launchCaller();
-                  },
-                  child: ListTile(
-                      leading: Icon(Icons.phone_outlined),
-                      title: Text('Phone'),
-                      subtitle: Text('03472 240014')),
-                ),
-                InkWell(
-                  onTap: () {
-                    _sendMail();
-                  },
-                  child: ListTile(
-                      leading: Icon(Icons.email_outlined),
-                      title: Text('Mail'),
-                      subtitle: Text('nvcollege1942@gmail.com')),
-                ),
-                InkWell(
-                  onTap: () {
-                    _launchWeb();
-                  },
-                  child: ListTile(
-                      leading: Icon(Icons.web_outlined),
-                      title: Text('Website'),
-                      subtitle: Text('https://nvc.ac.in/')),
-                ),
-                Divider(
-                  color: Colors.black,
-                  indent: 50,
-                  endIndent: 50,
-                ),
-                InkWell(
-                    onTap: () {
-                      _launchWhatsapp();
-                    },
-                    child: ListTile(
-                      leading: Icon(Icons.person_outline_outlined),
-                      title: Text('Atanu Debnath'),
-                      subtitle: Text('App Developer'),
-                    )),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Center(child: Expanded(child: Text('PLAYATANU'))),
-                SizedBox(
-                  height: 40,
-                ),
-              ],
+        body: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              decoration: new BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/logo.jpg'),
+                    fit: BoxFit.fitHeight),
+              ),
+              accountEmail: null,
+              accountName: null,
             ),
-          ),
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () {
+                _openMap();
+              },
+              child: ListTile(
+                  leading: Icon(Icons.location_on_outlined),
+                  title: Text('Address'),
+                  subtitle: Text('Pacca Tole Road, Nabadwip, Nadia – 741302')),
+            ),
+            InkWell(
+              onTap: () {
+                _launchCaller();
+              },
+              child: ListTile(
+                  leading: Icon(Icons.phone_outlined),
+                  title: Text('Phone'),
+                  subtitle: Text('03472 240014')),
+            ),
+            InkWell(
+              onTap: () {
+                _sendMail();
+              },
+              child: ListTile(
+                  leading: Icon(Icons.email_outlined),
+                  title: Text('Mail'),
+                  subtitle: Text('nvcollege1942@gmail.com')),
+            ),
+            InkWell(
+              onTap: () {
+                _launchWeb();
+              },
+              child: ListTile(
+                  leading: Icon(Icons.web_outlined),
+                  title: Text('Website'),
+                  subtitle: Text('https://nvc.ac.in/')),
+            ),
+
+            InkWell(
+                onTap: () {
+                  _launchCallerHelpLine();
+                },
+                child: ListTile(
+                  leading: Icon(Icons.phone),
+                  title: Text('Help Line Number'),
+                  subtitle: Text('03472 29110'),
+                )),
+
+            InkWell(
+                onTap: () {
+                  _launchWhatsapp();
+                },
+                child: ListTile(
+                  leading: Icon(Icons.person_outline_outlined),
+                  title: Text('Atanu Debnath'),
+                  subtitle: Text('App Developer'),
+                )),
+
+            SizedBox(
+              height: 30,
+            ),
+            Center(child: Text('PLAYATANU')),
+            SizedBox(
+              height: 20,
+            ),
+
+            // Center(child: Expanded(child: Text('PLAYATANU'))),
+          ],
         ));
   }
 }
+
+
+ /*Image(
+                image: AssetImage('assets/logo.jpg'),
+                fit: BoxFit.fitHeight,
+                height: MediaQuery.of(context).size.height / 4,
+                
+              ),
+              Center(
+                child: Text(
+                  'Welcome to Nabadwip Vidyasagar College',
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              InkWell(
+                onTap: () {
+                  _openMap();
+                },
+                child: ListTile(
+                    leading: Icon(Icons.location_on_outlined),
+                    title: Text('Address'),
+                    subtitle:
+                        Text('Pacca Tole Road, Nabadwip, Nadia – 741302')),
+              ),
+              InkWell(
+                onTap: () {
+                  _launchCaller();
+                },
+                child: ListTile(
+                    leading: Icon(Icons.phone_outlined),
+                    title: Text('Phone'),
+                    subtitle: Text('03472 240014')),
+              ),
+              InkWell(
+                onTap: () {
+                  _sendMail();
+                },
+                child: ListTile(
+                    leading: Icon(Icons.email_outlined),
+                    title: Text('Mail'),
+                    subtitle: Text('nvcollege1942@gmail.com')),
+              ),
+              InkWell(
+                onTap: () {
+                  _launchWeb();
+                },
+                child: ListTile(
+                    leading: Icon(Icons.web_outlined),
+                    title: Text('Website'),
+                    subtitle: Text('https://nvc.ac.in/')),
+              ),
+              InkWell(
+                  onTap: () {
+                    _launchWhatsapp();
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.person_outline_outlined),
+                    title: Text('Atanu Debnath'),
+                    subtitle: Text('App Developer'),
+                  )),
+              SizedBox(
+                height: 30,
+              ),
+              Center(child: Expanded(child: Text('PLAYATANU'))),
+*/

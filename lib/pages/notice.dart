@@ -30,31 +30,46 @@ class _NoticePageState extends State<NoticePage> {
 
   Future<List> _getdataFromWeb() async {
     final url = Uri.parse('https://nvc.ac.in/noticenoard/');
-    final response = await http.get(url);
 
-    dom.Document document = parser.parse(response.body);
+    try {
+      final response = await http.get(url);
 
-    final description = document.getElementsByClassName('__dt_row');
+      dom.Document document = parser.parse(response.body);
 
-    title = description
-        .map((element) => element.getElementsByTagName("a")[0].innerHtml)
-        .toList();
+      final description = document.getElementsByClassName('__dt_row');
 
-    final linkx = document
-        .getElementsByClassName('__dt_col_3 __dt_col __dt_col_download_link');
+      title = description
+          .map((element) => element.getElementsByTagName("a")[0].innerHtml)
+          .toList();
 
-    link = linkx
-        .map((element) => element
-            .getElementsByClassName('wpdm-download-link btn btn-primary')[0]
-            .attributes['onclick'])
-        .toList();
+      final linkx = document
+          .getElementsByClassName('__dt_col_3 __dt_col __dt_col_download_link');
 
-    final datex = document.getElementsByClassName('__dt_row');
+      link = linkx
+          .map((element) => element
+              .getElementsByClassName('wpdm-download-link btn btn-primary')[0]
+              .attributes['onclick'])
+          .toList();
 
-    date = datex
-        .map((element) =>
-            element.getElementsByClassName('__dt_update_date ')[0].innerHtml)
-        .toList();
+      final datex = document.getElementsByClassName('__dt_row');
+
+      date = datex
+          .map((element) =>
+              element.getElementsByClassName('__dt_update_date ')[0].innerHtml)
+          .toList();
+    } catch (e) {
+      final snackBar = SnackBar(
+        content: const Text('Hey! No internet connection!'),
+        action: SnackBarAction(
+          label: 'Retry',
+          onPressed: () {
+            _getdataFromWeb();
+            //  setState(() {});
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
 
     return title;
   }
@@ -72,59 +87,62 @@ class _NoticePageState extends State<NoticePage> {
               ),
               backgroundColor: Colors.white,
             ),
-      body: FutureBuilder(
-        future: _getdataFromWeb(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          return (title.length == 0)
-              ? Center(
-                  child: CircularProgressIndicator(
-                    value: null,
-                    strokeWidth: 5.0,
-                    color: blue,
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: title.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {},
-                      child: InkWell(
-                        onTap: () {
-                          {
-                            launch(
-                                link[index].replaceAll(
-                                    new RegExp("location.href='"), ''),
-                                forceSafariVC: false,
-                                forceWebView: false,
-                                headers: <String, String>{
-                                  'header_key': 'header_value'
-                                });
+      body: RefreshIndicator(
+        onRefresh: _getdataFromWeb,
+        child: FutureBuilder(
+          future: _getdataFromWeb(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            return (title.length == 0)
+                ? Center(
+                    child: CircularProgressIndicator(
+                      value: null,
+                      strokeWidth: 5.0,
+                      color: blue,
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: title.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {},
+                        child: InkWell(
+                          onTap: () {
+                            {
+                              launch(
+                                  link[index].replaceAll(
+                                      new RegExp("location.href='"), ''),
+                                  forceSafariVC: false,
+                                  forceWebView: false,
+                                  headers: <String, String>{
+                                    'header_key': 'header_value'
+                                  });
 
-                            /* Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WebView(
-                                    link: link[index],
-                                  )),
-                        );*/
-                          }
-                        },
-                        child: ListTile(
-                          title: Text(
-                            title[index],
-                          ),
-                          subtitle: Text(date[index]),
-                          trailing: Icon(
-                            Icons.download_outlined,
-                            color: blue,
-                            size: 30,
+                              /* Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WebView(
+                                      link: link[index],
+                                    )),
+                          );*/
+                            }
+                          },
+                          child: ListTile(
+                            title: Text(
+                              title[index],
+                            ),
+                            subtitle: Text(date[index]),
+                            trailing: Icon(
+                              Icons.download_outlined,
+                              color: blue,
+                              size: 30,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                );
-        },
+                      );
+                    },
+                  );
+          },
+        ),
       ),
     );
   }

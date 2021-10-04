@@ -66,6 +66,24 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
+  _launchCallerHelpLine2() async {
+    const url = "tel:7365098574";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchCallerHelpLine3() async {
+    const url = "tel:7365098575";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   _launchWhatsapp() async {
     const url = "https://chat.whatsapp.com/GukB3k4dtkgJQA91OVrTwH";
     if (await canLaunch(url)) {
@@ -110,110 +128,110 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           )),
       drawer: Drawer(
         child: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              //crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: UserAccountsDrawerHeader(
-                    accountEmail: null,
-                    accountName: null,
-                    decoration: new BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/logo.jpg'),
-                          fit: BoxFit.cover),
-                    ),
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: UserAccountsDrawerHeader(
+                  accountEmail: null,
+                  accountName: null,
+                  decoration: new BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/logo.jpg'),
+                        fit: BoxFit.cover),
                   ),
                 ),
-                InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NoticePage(
-                                  isAppbar: false,
-                                )),
-                      );
-                    },
-                    child: ListTile(
-                        leading: Icon(Icons.campaign),
-                        title: Text('Notice'),
-                        trailing: Icon(
-                          Icons.fiber_new_outlined,
-                          color: blue,
-                        ))),
-                InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LandinPage(
-                                  isAppbar: false,
-                                )),
-                      );
-                    },
-                    child: ListTile(
-                        leading: Icon(Icons.new_releases),
-                        title: Text('Updates'),
-                        trailing: Icon(
-                          Icons.fiber_new_outlined,
-                          color: blue,
-                        ))),
-                InkWell(
+              ),
+              InkWell(
                   onTap: () {
-                    launch(studentLogin[0],
-                        forceSafariVC: false,
-                        forceWebView: false,
-                        headers: <String, String>{
-                          'header_key': 'header_value'
-                        });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NoticePage(
+                                isAppbar: false,
+                              )),
+                    );
                   },
                   child: ListTile(
-                      title: Text('Student Login'),
-                      leading: Icon(Icons.portrait)),
-                ),
-                Divider(
-                  color: Colors.black,
-                  indent: 50,
-                  endIndent: 50,
-                ),
-                InkWell(
-                    onTap: () {
-                      _launchFacebook();
-                    },
-                    child: ListTile(
-                      leading: Icon(Icons.facebook),
-                      title: Text('Facebook'),
-                    )),
-                InkWell(
-                    onTap: _launchWeb,
-                    child: ListTile(
-                      leading: Icon(Icons.web),
-                      title: Text('Website'),
-                    )),
-                Divider(
-                  color: Colors.black,
-                  indent: 50,
-                  endIndent: 50,
-                ),
-                InkWell(
-                    onTap: () {
-                      _launchWhatsapp();
-                    },
-                    child: ListTile(
-                      leading: Icon(Icons.whatshot),
-                      title: Text('WhatsApp (UnOfficial)'),
-                    )),
-                SizedBox(
-                  height: 30,
-                ),
-                Center(child: Expanded(child: Text('PLAYATANU'))),
-                SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
+                      leading: Icon(Icons.campaign),
+                      title: Text('Notice'),
+                      trailing: Icon(
+                        Icons.fiber_new_outlined,
+                        color: blue,
+                      ))),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LandinPage(
+                                isAppbar: false,
+                              )),
+                    );
+                  },
+                  child: ListTile(
+                      leading: Icon(Icons.new_releases),
+                      title: Text('Updates'),
+                      trailing: Icon(
+                        Icons.fiber_new_outlined,
+                        color: blue,
+                      ))),
+              InkWell(
+                onTap: () {
+                  launch(studentLogin[0],
+                      forceSafariVC: false,
+                      forceWebView: false,
+                      headers: <String, String>{'header_key': 'header_value'});
+                },
+                child: ListTile(
+                    title: Text('Student Login'),
+                    leading: Icon(Icons.portrait)),
+              ),
+              InkWell(
+                  onTap: () {
+                    _launchFacebook();
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.facebook),
+                    title: Text('Facebook'),
+                  )),
+              InkWell(
+                  onTap: () {
+                    _launchCallerHelpLine2();
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.phone),
+                    title: Text('Help Line'),
+                    subtitle: Text('7365098574'),
+                  )),
+              InkWell(
+                  onTap: () {
+                    _launchCallerHelpLine3();
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.phone),
+                    title: Text('Help Line 2'),
+                    subtitle: Text('7365098575'),
+                  )),
+              InkWell(
+                  onTap: _launchWeb,
+                  child: ListTile(
+                    leading: Icon(Icons.web),
+                    title: Text('Website'),
+                  )),
+              InkWell(
+                  onTap: () {
+                    _launchWhatsapp();
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.whatshot),
+                    title: Text('WhatsApp (UnOfficial)'),
+                  )),
+              SizedBox(
+                height: 30,
+              ),
+            ],
           ),
         ),
       ),
